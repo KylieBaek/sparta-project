@@ -47,7 +47,7 @@
     $('#cards-box').append(temp_html);
   }
 
-   function make_loc_card(region,name,location,image,description,visitcount) {
+  function make_loc_card(region,name,location,image,description,visitcount) {
     let temp_html = '<div class="card" style="width: 20rem;">\
     <img class="card-img-top" src="'+image+'" alt="Card image cap">\
     <div class="card-body">\
@@ -58,10 +58,10 @@
     <li class="list-group-item">주소: '+location+'</li>\
     <li class="list-group-item">'+name+' 여행지 총 방문수 :'+visitcount +'</li>\
     </ul>\
-       <!-- check box -->\
+    <!-- check box -->\
     <div class="form-check form-check-inline">\
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">\
-      <label class="form-check-label" for="inlineCheckbox1">방문함</label>\
+    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">\
+    <label class="form-check-label" for="inlineCheckbox1">방문함</label>\
     </div>'
     $('#cards-box').append(temp_html);
   }
@@ -84,7 +84,7 @@
   })
   }
 
-   function location_listing(region){
+  function location_listing(region){
     $.ajax({
       type: "GET",
       url: "/"+region,
@@ -104,9 +104,10 @@
 
 <style type="text/css">
   * {
-   font-family: 'Nanum Gothic Coding', sans-serif;;
+   font-family: 'Nanum Gothic Coding', sans-serif;
+   width: 1200px;
+   margin: auto;
  }
-
  .wrap {
   width: 900px;
   margin: auto;
@@ -115,9 +116,14 @@
   color: gray;
   font-weight: bold;
 }
-.align{
+.container {
+  text-align: center;
+  padding: auto;
+}
+.alert {
   text-align: center;
 }
+
 </style>
 
 
@@ -128,7 +134,7 @@
   <div class="jumbotron jumbotron-fluid">
     <div class="container" >
       <h1 class="display-4">국내 여행지 가이드 맵 KO-MAP</h1>
-      <p class="lead"> KO-MAP 코맵과 대한민국을 여행하세요 :) </p>
+      <p class="lead"> KO-MAP과 대한민국을 여행하세요 :) </p>
     </div>
   </div>
 
@@ -136,29 +142,31 @@
     서울 | 부산 | 대구 | 인천 | 광주 | 대전 | 울산 | 세종 | 경기 | 강원 | 충북 | 충남 | 경북 | 경남 | 전북 | 전남 | 제주 
   </div>
   <!-- search box -->
-  <nav class="navbar navbar-light bg-light">
-    <form class="form-inline">
-      <input class="form-control mr-sm-2" type="search" placeholder="예) 제주도" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색하기</button>
-    </form>
-  </nav>
+  <div class="form-gruop">
+    <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="예) 제주도" aria-label="예) 제주도" aria-describedby="button-addon2">
+      <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+      </div>
+    </div>
+  </div>
 
-  <!-- card box listing-->
-  <div class="card-columns" id="cards-box">
-    <div class="card" style="width: 20rem;">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">서울틀별시</h5>
-        <p class="card-text">서울은 ~~</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">서울 지역 여행지 수 : 100</li>
-        <li class="list-group-item">서울 지역 여행지 총 방문수 : 40000</li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link">서울 여행지 보러가기</a>
-      </div>
-      <!-- check box -->
+<!-- card box listing-->
+<div class="card-columns" id="cards-box">
+  <div class="card" style="width: 20rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">서울틀별시</h5>
+      <p class="card-text">서울은 ~~</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">서울 지역 여행지 수 : 100</li>
+      <li class="list-group-item">서울 지역 여행지 총 방문수 : 40000</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">서울 여행지 보러가기</a>
+    </div>
+    <!-- check box -->
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
       <label class="form-check-label" for="inlineCheckbox1">방문함</label>
