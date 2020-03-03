@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <!-- Webpage Title -->
+  <title>국내 여행지 가이드 맵 KO-MAP</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- JS -->   
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- google font -->
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+
+
+  <script>
+
+   $(document).ready(function(){
+    $('#cards-box').html('');
+    region_listing();
+  });
+
+
+
+   function make_card(region,region_ko, image,visitcount) {
+    let temp_html = '<div class="card" style="width: 20rem;">\
+    <img class="card-img-top" src="'+image+'" alt="Card image cap">\
+    <div class="card-body">\
+    <h5 class="card-title">'+region_ko+'</h5>\
+    <p class="card-text">'+region_ko+'~~~</p>\
+    </div>\
+    <ul class="list-group list-group-flush">\
+    <li class="list-group-item">'+region_ko+' 여행지 수 :50</li>\
+    <li class="list-group-item">'+region_ko+' 여행지 총 방문수 :'+visitcount +'</li>\
+    </ul>\
+    <div class="card-body">\
+    <a href="/'+region+'" class="card-link">'+region_ko+' 여행지 보러가기</a>\
+    </div>'
+    $('#cards-box').append(temp_html);
+  }
+
+  function make_loc_card(region,name,location,image,description,visitcount) {
+    let temp_html = '<div class="card" style="width: 20rem;">\
+    <img class="card-img-top" src="'+image+'" alt="Card image cap">\
+    <div class="card-body">\
+    <h5 class="card-title">'+name+'</h5>\
+    <p class="card-text">'+description+'</p>\
+    </div>\
+    <ul class="list-group list-group-flush">\
+    <li class="list-group-item">주소: '+location+'</li>\
+    <li class="list-group-item">'+name+' 여행지 총 방문수 :'+visitcount +'</li>\
+    </ul>\
+    <!-- check box -->\
+    <div class="form-check form-check-inline">\
+    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">\
+    <label class="form-check-label" for="inlineCheckbox1">방문함</label>\
+    </div>'
+    $('#cards-box').append(temp_html);
+  }
+
+
+
+  function region_listing(){
+    $.ajax({
+      type: "GET",
+      url:"/main",
+      data: {},
+      success: function(response){
+       console.log(response)
+       let regions = response['regions'];
+       for (let i = 0; i < regions.length; i++) {
+        make_card(regions[i]['region'],regions[i]['region_ko'],regions[i]['image'],regions[i]['visitcount']);
+      }
+
+    }
+  })
+  }
+
+  function location_listing(region){
+    $.ajax({
+      type: "GET",
+      url: "/"+region,
+      data: {},
+      success: function(response){
+       console.log(response)
+       let locations = response['locations'];
+       for (let i = 0; i < locations.length; i++) {
+        make_loc_card(locations[i]['region'],locations[i]['name'],locations[i]['location'],locations[i]['image'],
+          locations[i]['description'],locations[i]['visitcount']);
+      }
+
+    }
+  })
+  }
+</script>
+
+<style type="text/css">
+  * {
+   font-family: 'Nanum Gothic Coding', sans-serif;
+   width: 1200px;
+   margin: auto;
+ }
+ .wrap {
+  width: 900px;
+  margin: auto;
+}
+.comment {
+  color: gray;
+  font-weight: bold;
+}
+.container {
+  text-align: center;
+  padding: auto;
+}
+.alert {
+  text-align: center;
+}
+
+</style>
+
+
+
+
+</head>
+<body>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container" >
+      <h1 class="display-4">국내 여행지 가이드 맵 KO-MAP</h1>
+      <p class="lead"> KO-MAP과 대한민국을 여행하세요 :) </p>
+    </div>
+  </div>
+
+  <div class="alert alert-dark" role="alert">
+    서울 | 부산 | 대구 | 인천 | 광주 | 대전 | 울산 | 세종 | 경기 | 강원 | 충북 | 충남 | 경북 | 경남 | 전북 | 전남 | 제주 
+  </div>
+  <!-- search box -->
+  <div class="form-gruop">
+    <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="예) 제주도" aria-label="예) 제주도" aria-describedby="button-addon2">
+      <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+      </div>
+    </div>
+  </div>
+
+<!-- card box listing-->
+<div class="card-columns" id="cards-box">
+  <div class="card" style="width: 20rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">서울틀별시</h5>
+      <p class="card-text">서울은 ~~</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">서울 지역 여행지 수 : 100</li>
+      <li class="list-group-item">서울 지역 여행지 총 방문수 : 40000</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">서울 여행지 보러가기</a>
+    </div>
+    <!-- check box -->
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+      <label class="form-check-label" for="inlineCheckbox1">방문함</label>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
