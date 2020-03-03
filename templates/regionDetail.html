@@ -20,34 +20,26 @@
   <!-- google font -->
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
 
+  <style type="text/css">
+    * {
+     font-family: 'Nanum Gothic Coding', sans-serif;;
+   }
 
-  <script>
-
-   $(document).ready(function(){
-    $('#cards-box').html('');
-    region_listing();
-  });
-
-
-
-   function make_card(region,region_ko, image,visitcount) {
-    let temp_html = '<div class="card" style="width: 20rem;">\
-    <img class="card-img-top" src="'+image+'" alt="Card image cap">\
-    <div class="card-body">\
-    <h5 class="card-title">'+region_ko+'</h5>\
-    <p class="card-text">'+region_ko+'~~~</p>\
-    </div>\
-    <ul class="list-group list-group-flush">\
-    <li class="list-group-item">'+region_ko+' 여행지 수 :50</li>\
-    <li class="list-group-item">'+region_ko+' 여행지 총 방문수 :'+visitcount +'</li>\
-    </ul>\
-    <div class="card-body">\
-    <a href="/'+region+'" class="card-link">'+region_ko+' 여행지 보러가기</a>\
-    </div>'
-    $('#cards-box').append(temp_html);
+   .wrap {
+    width: 900px;
+    margin: auto;
   }
+  .comment {
+    color: gray;
+    font-weight: bold;
+  }
+  .align{
+    text-align: center;
+  }
+</style>
 
-   function make_loc_card(region,name,location,image,description,visitcount) {
+<script>
+     function make_loc_card(region,name,location,image,description,visitcount) {
     let temp_html = '<div class="card" style="width: 20rem;">\
     <img class="card-img-top" src="'+image+'" alt="Card image cap">\
     <div class="card-body">\
@@ -66,24 +58,6 @@
     $('#cards-box').append(temp_html);
   }
 
-
-
-  function region_listing(){
-    $.ajax({
-      type: "GET",
-      url:"/main",
-      data: {},
-      success: function(response){
-       console.log(response)
-       let regions = response['regions'];
-       for (let i = 0; i < regions.length; i++) {
-        make_card(regions[i]['region'],regions[i]['region_ko'],regions[i]['image'],regions[i]['visitcount']);
-      }
-
-    }
-  })
-  }
-
    function location_listing(region){
     $.ajax({
       type: "GET",
@@ -100,29 +74,9 @@
     }
   })
   }
+
+
 </script>
-
-<style type="text/css">
-  * {
-   font-family: 'Nanum Gothic Coding', sans-serif;;
- }
-
- .wrap {
-  width: 900px;
-  margin: auto;
-}
-.comment {
-  color: gray;
-  font-weight: bold;
-}
-.align{
-  text-align: center;
-}
-</style>
-
-
-
-
 </head>
 <body>
   <div class="jumbotron jumbotron-fluid">
@@ -144,27 +98,25 @@
   </nav>
 
   <!-- card box listing-->
-  <div class="card-columns" id="cards-box">
-    <div class="card" style="width: 20rem;">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">서울틀별시</h5>
-        <p class="card-text">서울은 ~~</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">서울 지역 여행지 수 : 100</li>
-        <li class="list-group-item">서울 지역 여행지 총 방문수 : 40000</li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link">서울 여행지 보러가기</a>
-      </div>
-      <!-- check box -->
+  <div class="card" style="width: 20rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">서울틀별시</h5>
+      <p class="card-text">서울은 ~~</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">서울 지역 여행지 수 : 100</li>
+      <li class="list-group-item">서울 지역 여행지 총 방문수 : 40000</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">서울 여행지 보러가기</a>
+    </div>
+    <!-- check box -->
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
       <label class="form-check-label" for="inlineCheckbox1">방문함</label>
     </div>
   </div>
-</div>
 
 
 </body>

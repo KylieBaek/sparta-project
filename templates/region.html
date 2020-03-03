@@ -39,6 +39,17 @@
 </style>
 
 <script>
+    $(document).ready(function(){
+    $('#cards-box').html('');
+    alert("{{data['region']}}")
+    seoul();
+  });
+
+
+
+  // 
+
+
  function make_loc_card(region,name,location,image,description,visitcount) {
   let temp_html = '<div class="card" style="width: 20rem;">\
   <img class="card-img-top" src="'+image+'" alt="Card image cap">\
@@ -66,31 +77,17 @@ let region_list = ['seoul','daegu','gwangju','gyeongbuk','gyeonggi','jeju','jeon
 function seoul(){
   $.ajax({
     type: "GET",
-    url: "/region?region_give=seoul",
+    url: "/region?{{data['region']}}",
     data: {},
     success: function(response){
-     console.log(response)
-     let locations = response['locations'];
-     for (let i = 0; i < locations.length; i++) {
-      make_loc_card(locations[i]['region'],locations[i]['name'],locations[i]['location'],locations[i]['image'],
-        locations[i]['description'],locations[i]['visitcount']);
-    }
-
-  }
-})
-}
-function daegu(){
-  $.ajax({
-    type: "GET",
-    url: "/region?region_give=daegu",
-    data: {},
-    success: function(response){
-     console.log(response)
-     let locations = response['locations'];
-     for (let i = 0; i < locations.length; i++) {
-      make_loc_card(locations[i]['region'],locations[i]['name'],locations[i]['location'],locations[i]['image'],
-        locations[i]['description'],locations[i]['visitcount']);
-    }
+      alert("뜬다.")
+      console.log({{data['locations']}})
+     // console.log(response)
+    //  let locations = response['locations'];
+    //  for (let i = 0; i < locations.length; i++) {
+    //   make_loc_card(locations[i]['region'],locations[i]['name'],locations[i]['location'],locations[i]['image'],
+    //     locations[i]['description'],locations[i]['visitcount']);
+    // }
 
   }
 })
