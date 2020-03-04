@@ -33,9 +33,10 @@ def listing():
 def region():
     region_receive = request.args.get('region_give')
 
-    locations = list(db.region.find({'region': region_receive}, {'_id': 0}))
-    sort_location = sorted(locations, key=itemgetter('visitcount', 'region_ko'))  # visitcount기준으로 오름차순정렬
+    locations = list(db.locations.find({'region': region_receive}, {'_id': 0}))
+    sort_location = sorted(locations, key=itemgetter('visitcount', 'name'))  # visitcount기준으로 오름차순정렬
     sort_location.reverse()
+
     return render_template('region.html',data={'region' : region_receive,'locations':sort_location})
 
 # @app.route('/regiondetail',methods = ['GET'])
