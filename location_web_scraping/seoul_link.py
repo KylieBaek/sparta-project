@@ -6,7 +6,7 @@ from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 db = client.dbproject
 
-driver = webdriver.Chrome('C:/Users/NTRION/Downloads/chromedriver_win32/chromedriver.exe')
+driver = webdriver.Chrome('C:/Users/Choi JungWon/Downloads/chromedriver_win32/chromedriver.exe')
 driver.get('https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%84%9C%EC%9A%B8&temp=')
 driver.implicitly_wait(3)  # 암묵적으로 웹 자원을 (최대) 3초 기다리기
 

@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 client = MongoClient('localhost', 27017)
 db = client.dbproject
-driver = webdriver.Chrome('C:/Users/NTRION/Downloads/chromedriver_win32/chromedriver.exe')
+driver = webdriver.Chrome('C:/Users/Choi JungWon/Downloads/chromedriver_win32/chromedriver.exe')
 
 spots = list(db.seoullink.find({}))
 
