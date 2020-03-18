@@ -66,18 +66,34 @@ def regiondetail_locations():
         print(s)
 
     return jsonify({'result': 'success', 'region': region_receive, 'locations':sort_location})
-#
-# @app.route('/region',methods = ['GET'])
-# def region_detail():
-#     region_receive = request.args.get('region_give')
-#     locations = list(db.location.find({'region': region_receive}, {'_id': 0}))
-#     sort_location = sorted(locations, key=itemgetter('visitcount', 'name'))  # visitcount기준으로 오름차순정렬
-#     sort_location.reverse()
-#
-#     for s in sort_location:
-#         print(s)
-#
-#     return jsonify({'result': 'success', 'locations':sort_location})
+
+
+@app.route('/visitup', methods=['POST'])
+def saving():
+    url_receive = request.form['url_give']  # 클라이언트로부터 url을 받는 부분
+    comment_receive = request.form['comment_give']  # 클라이언트로부터 comment를 받는 부분
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(url_receive, headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+
+    og_image = soup.select_one('meta[property="og:image"]')
+    og_title = soup.select_one('meta[property="og:title"]')
+    og_description = soup.select_one('meta[property="og:description"]')
+
+    url_image = og_image['content']
+    url_title = og_title['content']
+    url_description = og_description['content']
+
+    article = {'url': url_receive, 'comment': comment_receive, 'image': url_image,
+               'title': url_title, 'desc': url_description}
+
+    db.articles.insert_one(article)
+
+    return jsonify({'result': 'success'})
+
 
 
 if __name__ == '__main__':
